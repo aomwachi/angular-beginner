@@ -3,11 +3,11 @@
 
 ## 🛠️ สิ่งที่ต้องเตรียม (Prerequisites)
 ก่อนเริ่มต้น ตรวจสอบให้แน่ใจว่าคุณได้ติดตั้งสิ่งเหล่านี้เรียบร้อยแล้ว:
-* Node.js (เวอร์ชันล่าสุดหรือ LTS)
+* [Node.js](https://nodejs.org/en/download): (เวอร์ชันล่าสุดหรือ LTS)
 * npm (ติดตั้งมาพร้อมกับ Node.js)
-* Angular CLI: ติดตั้งผ่านคำสั่ง:
+* [Angular CLI](https://angular.dev/overview): ติดตั้งผ่านคำสั่ง:
 
-```npm install -g @angular/cli```
+``` npm install -g @angular/cli ```
 
 ## 🏗️ โครงสร้างโปรเจกต์ (Project Structure)
 ใน Angular เวอร์ชันใหม่ (Stand-alone components) โครงสร้างหลักจะอยู่ที่โฟลเดอร์ src/app:
