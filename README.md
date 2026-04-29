@@ -7,7 +7,7 @@
 * npm (ติดตั้งมาพร้อมกับ Node.js)
 * Angular CLI: ติดตั้งผ่านคำสั่ง:
 
-`npm install -g @angular/cli`
+```npm install -g @angular/cli```
 
 ## 🏗️ โครงสร้างโปรเจกต์ (Project Structure)
 ใน Angular เวอร์ชันใหม่ (Stand-alone components) โครงสร้างหลักจะอยู่ที่โฟลเดอร์ src/app:
@@ -44,9 +44,9 @@
 
 
 ## 🧪 คำสั่งที่ใช้บ่อย (Useful CLI Commands)
-* สร้าง Component ใหม่: `ng generate component components/name`
-* สร้าง Service ใหม่: `ng generate service services/name`
-* Build สำหรับ Production: ng build
+* สร้าง Component ใหม่: ```ng generate component components/name```
+* สร้าง Service ใหม่: ```ng generate service services/name```
+* Build สำหรับ Production: ```ng build```
 
 
 ## 📂 โครงสร้างโฟลเดอร์ (Project Structure)
