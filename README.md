@@ -15,7 +15,7 @@
 **Components:** ส่วนประกอบของหน้าจอ (UI)
 **Services:** ส่วนที่ใช้จัดการ Logic หรือดึงข้อมูลจาก API
 **Models/Interfaces:** กำหนดโครงสร้างข้อมูล (TypeScript)
-**Styles:** การตกแต่งด้วย Tailwind CSS หรือ CSS ปกติ
+**Styles:** การตกแต่งด้วย [Tailwind CSS](https://tailwindcss.com/docs/installation/using-vite) หรือ CSS ปกติ
 
 
 ## 📘 หัวข้อการเรียนรู้ (Learning Path)
