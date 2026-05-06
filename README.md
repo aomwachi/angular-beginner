@@ -130,7 +130,6 @@ Service คือ
 * จัดการข้อมูล (data)
 * เรียก API
 * แชร์ข้อมูลระหว่าง component
-* รวม business logic
 
 * example การใช้ service เรียก API
 ```
