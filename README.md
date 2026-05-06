@@ -60,3 +60,65 @@ src/
 ├── assets/              # ไฟล์รูปภาพหรือ Static files
 └── styles.css           # Global styles (Tailwind directives)
 ```
+
+
+## 📂 การส่ง data ข้าม component
+*1. Parent ➝ Child
+```
+// child.component.ts
+@Input() data: string;
+```
+
+```
+<!-- parent.component.html -->
+<app-child [data]="parentData"></app-child>
+```
+
+*2. Child ➝ Parent
+
+``` 
+// child.component.ts
+@Output() sendData = new EventEmitter<string>();
+
+send() {
+  this.sendData.emit('hello');
+}
+```
+
+```
+<!-- parent.component.html -->
+<app-child (sendData)="handleData($event)"></app-child>
+```
+
+*3. Component ที่ไม่เกี่ยวกัน (Sibling / Cross component)
+```
+// data.service.ts
+private dataSource = new BehaviorSubject<string>('default');
+currentData$ = this.dataSource.asObservable();
+
+setData(value: string) {
+  this.dataSource.next(value);
+}
+```
+
+```
+// component A (ส่ง)
+this.dataService.setData('hello');
+```
+
+```
+// component B (รับ)
+this.dataService.currentData$.subscribe(data => {
+  console.log(data);
+});
+```
+
+*4. Routing (ส่งผ่าน URL)
+
+```this.router.navigate(['/page'], { queryParams: { id: 1 } });```
+```
+this.route.queryParams.subscribe(params => {
+  console.log(params['id']);
+});
+```
+
