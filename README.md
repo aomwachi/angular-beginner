@@ -167,7 +167,7 @@ const routes: Routes = [
 export class AppRoutingModule {}
 ```
 
-* 1. Navigate ผ่าน html 
+* 1.Navigate ผ่าน html 
 ```
 <a routerLink="/about">Go to About</a>
 ```
@@ -176,7 +176,7 @@ export class AppRoutingModule {}
 <button [routerLink]="['/about']">Go</button>
 ```
 
-* 2. Navigate ผ่าน TypeScript
+* 2.Navigate ผ่าน TypeScript
 
 ```
 import { Router } from '@angular/router';
