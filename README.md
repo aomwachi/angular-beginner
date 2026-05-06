@@ -63,7 +63,7 @@ src/
 
 
 ## 📂 การส่ง data ข้าม component
-*1. Parent ➝ Child
+**1. Parent ➝ Child**
 ```
 // child.component.ts
 @Input() data: string;
@@ -74,7 +74,7 @@ src/
 <app-child [data]="parentData"></app-child>
 ```
 
-*2. Child ➝ Parent
+**2. Child ➝ Parent**
 
 ``` 
 // child.component.ts
@@ -90,7 +90,7 @@ send() {
 <app-child (sendData)="handleData($event)"></app-child>
 ```
 
-*3. Component ที่ไม่เกี่ยวกัน (Sibling / Cross component)
+**3. Component ที่ไม่เกี่ยวกัน (Sibling / Cross component)**
 ```
 // data.service.ts
 private dataSource = new BehaviorSubject<string>('default');
@@ -113,12 +113,165 @@ this.dataService.currentData$.subscribe(data => {
 });
 ```
 
-*4. Routing (ส่งผ่าน URL)
+**4. Routing (ส่งผ่าน URL)**
 
-```this.router.navigate(['/page'], { queryParams: { id: 1 } });```
+```
+this.router.navigate(['/page'], { queryParams: { id: 1 } });
+```
 ```
 this.route.queryParams.subscribe(params => {
   console.log(params['id']);
 });
 ```
 
+## Service คืออะไร
+
+Service คือ 
+* จัดการข้อมูล (data)
+* เรียก API
+* แชร์ข้อมูลระหว่าง component
+* รวม business logic
+
+* example การใช้ service เรียก API
+```
+import { HttpClient } from '@angular/common/http';
+constructor(private http: HttpClient) {}
+
+getUsers() {
+  return this.http.get('https://api.example.com/users');
+}
+```
+
+```
+this.dataService.getUsers().subscribe(res => {
+  console.log(res);
+});
+```
+
+## การ router
+```
+// app-routing.module.ts
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },          // หน้าแรก
+  { path: 'about', component: AboutComponent },    // /about
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}
+```
+
+* 1. Navigate ผ่าน html 
+```
+<a routerLink="/about">Go to About</a>
+```
+
+```
+<button [routerLink]="['/about']">Go</button>
+```
+
+* 2. Navigate ผ่าน TypeScript
+
+```
+import { Router } from '@angular/router';
+
+constructor(private router: Router) {}
+
+goToAbout() {
+  this.router.navigate(['/about']);
+}
+```
+
+# Reactive Form + Validation
+
+* 1. Import ReactiveFormsModule
+
+```
+// app.module.ts
+import { ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({
+  imports: [ReactiveFormsModule]
+})
+export class AppModule {}
+```
+
+* 2. ตัวอย่าง Login Form
+
+```
+// login.component.ts
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html'
+})
+export class LoginComponent {
+
+  constructor(private fb: FormBuilder) {}
+
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]]
+  });
+
+  onSubmit() {
+    if (this.loginForm.invalid) return;
+
+    console.log(this.loginForm.value);
+    // call API here
+  }
+}
+```
+
+* html (type submit)
+```
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+  <input type="email" formControlName="email" placeholder="Email">
+  <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+    <small *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</small>
+    <small *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format</small>
+  </div>
+
+  <input type="password" formControlName="password" placeholder="Password">
+  <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+    <small *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</small>
+    <small *ngIf="loginForm.get('password')?.errors?.['minlength']">
+      Minimum 6 characters
+    </small>
+  </div>
+
+  <button type="submit" [disabled]="loginForm.invalid">Login</button>
+</form>
+```
+
+* html (type button)
+```
+<form [formGroup]="loginForm">
+
+  <input type="email" formControlName="email" placeholder="Email">
+  <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+    <small *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</small>
+    <small *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format</small>
+  </div>
+
+  <input type="password" formControlName="password" placeholder="Password">
+  <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+    <small *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</small>
+    <small *ngIf="loginForm.get('password')?.errors?.['minlength']">
+      Minimum 6 characters
+    </small>
+  </div>
+
+  <button type="button" (click)="onSubmit()" [disabled]="loginForm.invalid">Login</button>
+</form>
+```
