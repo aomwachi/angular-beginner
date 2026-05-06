@@ -189,7 +189,7 @@ goToAbout() {
 }
 ```
 
-# Reactive Form + Validation
+## Reactive Form + Validation
 
 * 1. Import ReactiveFormsModule
 
